@@ -208,7 +208,7 @@ function drawMonthly(p) {
     animation: false,
     color: colors,
     grid: { left: 48, right: 8, top: 55, bottom: 55 },
-    tooltip: { trigger: 'axis', valueFormatter: v => v == null ? '' : `${fmt2(v)} &#21315;&#21544;` },
+    tooltip: { trigger: 'axis', valueFormatter: v => v == null ? '' : fmt2(v) },
     legend: { top: 2, itemWidth: 30, itemHeight: 4, textStyle: { color: '#003b68', fontSize: 20 }, data: p.years.map(String) },
     xAxis: { type: 'category', boundaryGap: false, axisLine: { lineStyle: { color: '#222' } }, axisTick: { show: false }, axisLabel: { color: '#565656', fontSize: 18 }, data: Array.from({length: 12}, (_, i) => String(i + 1)) },
     yAxis: { type: 'value', min: 0, max: value => Math.max(40, Math.ceil(value.max / 10) * 10), interval: 10, axisLine: { show: true, lineStyle: { color: '#222' } }, axisLabel: { color: '#565656', fontSize: 18 }, splitLine: { show: false } },
