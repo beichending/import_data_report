@@ -95,6 +95,7 @@ nav a { color: #003b68; text-decoration: none; border: 1px solid #d8e0e8; paddin
 .trend-kpi.negative { color: #9a463c; }
 .trend-kpi small { color: #6b7b85; font-size: 11px; font-weight: 400; }
 .product-footer { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 28px; padding: 12px 2px 18px; border-top: 1px solid #d8e0e8; color: #66757f; font-size: 12px; }
+.print-page-footer { display: none; }
 @media (max-width: 1120px) {
   .grid { grid-template-columns: 1fr; }
   .panel + .panel { border-left: 0; border-top: 1px solid #003b68; padding-left: 0; padding-top: 18px; }
@@ -127,42 +128,72 @@ nav a { color: #003b68; text-decoration: none; border: 1px solid #d8e0e8; paddin
   .trend-main + .trend-kpi { grid-column: 1; grid-row: 3; }
   .trend-kpi:last-child { grid-column: 2; grid-row: 3; border-right: 0; }
 }
+body.pdf-exporting { overflow: visible; }
+body.pdf-exporting .page { width: 1060px; max-width: none; padding: 0; }
+body.pdf-exporting .top { display: none; }
+body.pdf-exporting .grid { grid-template-columns: 16% 30% minmax(0, 1fr); gap: 10px; }
+body.pdf-exporting .panel + .panel { border-left: 1px solid #003b68; border-top: 0; padding-top: 0; padding-left: 10px; }
+body.pdf-exporting .chart { height: 250px; }
+body.pdf-exporting .country-trend-board { min-width: 0; }
+body.pdf-exporting .country-trend-columns { display: grid; }
+body.pdf-exporting .country-trend-columns,
+body.pdf-exporting .country-trend-row { grid-template-columns: 66px 104px minmax(0, 1fr) 72px 62px; }
+body.pdf-exporting .trend-country,
+body.pdf-exporting .trend-brands,
+body.pdf-exporting .trend-main,
+body.pdf-exporting .trend-main + .trend-kpi,
+body.pdf-exporting .trend-kpi:last-child { grid-column: auto; grid-row: auto; }
+body.pdf-exporting .country-trend-chart { height: 88px; }
 @page { size: A4 landscape; margin: 8mm; }
 @media print {
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   html { scroll-behavior: auto; }
   body { background: #fff; }
-  .page { max-width: none; padding: 0; }
+  .page { width: 1060px; max-width: none; padding: 0; }
   .top { display: none; }
   .product { margin: 0; padding-top: 0; break-before: page; scroll-margin-top: 0; }
   .product:first-child { break-before: auto; }
-  .product h2 { margin-bottom: 10px; padding: 0 0 7px 10px; font-size: 24px; line-height: 1.15; }
+  .product h2 { margin-bottom: 7px; padding: 0 0 5px 9px; font-size: 22px; line-height: 1.1; }
   .grid { grid-template-columns: 16% 30% minmax(0, 1fr); gap: 10px; break-inside: avoid; }
   .panel + .panel { border-left: 1px solid #003b68; border-top: 0; padding-top: 0; padding-left: 10px; }
-  .title, .rolling-title { height: auto; margin-bottom: 4px; font-size: 14px; white-space: normal; }
-  .chart { height: 330px; }
-  .rolling-panel, .country-trend-panel { margin-top: 12px; padding-top: 10px; }
+  .title, .rolling-title { height: auto; margin-bottom: 3px; font-size: 13px; white-space: normal; }
+  .chart { height: 250px; }
+  .rolling-panel { margin-top: 7px; padding-top: 6px; }
+  .rolling-period { font-size: 8px; }
+  .country-trend-panel { margin-top: 0; padding-top: 0; break-before: page; }
   .rolling-table-wrap, .country-trend-scroll { overflow: visible; }
-  .rolling-table { min-width: 0; font-size: 8px; }
-  .rolling-table th, .rolling-table td { height: 20px; padding: 2px 4px; }
-  .rolling-table thead th, .rolling-table thead .summary-head { font-size: 9px; }
-  .rolling-table .country-cn { width: 58px; font-size: 8px; }
-  .rolling-table .country-en { left: 58px; width: 92px; font-size: 8px; }
-  .country-trend-title { font-size: 16px; }
-  .country-trend-legend { gap: 10px; font-size: 9px; }
+  .rolling-table { min-width: 0; font-size: 7.5px; }
+  .rolling-table th, .rolling-table td { height: 16px; padding: 1px 3px; }
+  .rolling-table thead .period-head { height: 22px; }
+  .rolling-table thead .subhead { height: 18px; }
+  .rolling-table thead th, .rolling-table thead .summary-head { font-size: 8px; }
+  .rolling-table thead .summary-head { position: static; left: auto; width: 150px; }
+  .rolling-table .country-cn { position: static; left: auto; width: 56px; font-size: 7.5px; }
+  .rolling-table .country-en { position: static; left: auto; width: 94px; box-shadow: none; font-size: 7.5px; }
+  .rolling-table .share-cell::before { top: 2px; bottom: 2px; }
+  .country-trend-heading { gap: 8px; }
+  .country-trend-title { font-size: 15px; }
+  .country-trend-legend { gap: 8px; font-size: 8px; }
+  .legend-bar { width: 14px; height: 8px; }
+  .legend-line { width: 17px; border-top-width: 2px; }
+  .legend-average { font-size: 13px; }
+  .country-trend-scroll { margin-top: 7px; }
   .country-trend-columns { display: grid; }
   .country-trend-board { min-width: 0; }
   .country-trend-columns, .country-trend-row { grid-template-columns: 66px 104px minmax(0, 1fr) 72px 62px; }
-  .country-trend-row { min-height: 170px; break-inside: avoid; }
+  .country-trend-columns { min-height: 24px; font-size: 8px; }
+  .country-trend-row { min-height: 120px; break-inside: avoid; }
   .trend-country, .trend-brands, .trend-main, .trend-main + .trend-kpi, .trend-kpi:last-child { grid-column: auto; grid-row: auto; }
-  .trend-country { font-size: 11px; }
-  .trend-brands { font-size: 9px; }
-  .country-trend-chart { height: 122px; }
-  .year-average-strip { margin: 0 42px 0 35px; }
-  .year-average span, .year-average b { font-size: 7px; }
-  .trend-kpi { font-size: 10px; }
-  .trend-kpi small { font-size: 7px; }
-  .product-footer { margin-top: 12px; padding: 7px 0 0; font-size: 8px; }
+  .trend-country { min-height: 0; padding: 0; font-size: 10px; }
+  .trend-brands { min-height: 0; padding: 0; font-size: 8px; }
+  .trend-main { padding: 3px 1px 2px; }
+  .country-trend-chart { height: 88px; }
+  .year-average-strip { margin: 0 32px 0 29px; }
+  .year-average span, .year-average b { font-size: 6px; }
+  .trend-kpi { min-height: 0; border-top: 0; font-size: 9px; }
+  .trend-kpi small { font-size: 6px; }
+  .product-footer, .print-page-footer { align-items: center; justify-content: space-between; flex-direction: row; gap: 12px; margin-top: 6px; padding: 5px 0 0; border-top: 1px solid #d8e0e8; color: #66757f; font-size: 7px; }
+  .print-page-footer { display: flex; }
 }
 </style>
 </head>
@@ -239,11 +270,12 @@ function makeSection(p) {
   const section = document.createElement('section');
   section.className = 'product';
   section.id = p.key;
+  const printPageFooter = p.countryTrends ? `<div class="print-page-footer"><span>Source: CDI data</span><span>最近更新日期：${updatedDate}</span></div>` : '';
   section.innerHTML = `<h2>${p.zh}进口分析</h2><div class="grid">
     <div class="panel"><div class="title">年度进口量，千吨</div><div id="${p.key}-annual" class="chart"></div></div>
     <div class="panel"><div class="title">月度${p.zh}进口总量变化，千吨</div><div id="${p.key}-monthly" class="chart"></div></div>
     <div class="panel"><div class="title">近12个月${p.zh}进口来源占比，%</div><div id="${p.key}-stacked" class="chart"></div></div>
-  </div><div class="rolling-panel"><div class="rolling-heading"><div class="rolling-title">Rolling 12个月进口数据汇总</div><div id="${p.key}-rolling-period" class="rolling-period">截止 ${p.latestMonth}</div></div><div id="${p.key}-rolling-table">${makeRollingTable(p)}</div></div>${p.countryTrends ? makeCountryTrends(p) : ''}<footer class="product-footer"><span>Source: CDI data</span><span>最近更新日期：${updatedDate}</span></footer>`;
+  </div><div class="rolling-panel"><div class="rolling-heading"><div class="rolling-title">Rolling 12个月进口数据汇总</div><div id="${p.key}-rolling-period" class="rolling-period">截止 ${p.latestMonth}</div></div><div id="${p.key}-rolling-table">${makeRollingTable(p)}</div></div>${printPageFooter}${p.countryTrends ? makeCountryTrends(p) : ''}<footer class="product-footer"><span>Source: CDI data</span><span>最近更新日期：${updatedDate}</span></footer>`;
   root.appendChild(section);
 }
 
@@ -394,6 +426,7 @@ products.forEach(p => {
   charts.push(drawAnnual(p), drawMonthly(p), drawStacked(p));
   if (p.countryTrends) charts.push(...drawCountryTrends(p));
 });
+const screenChartOptions = new Map(charts.map(chart => [chart, chart.getOption()]));
 
 const rollingMonths = Object.keys(products[0].rollingHistory)
   .filter(month => products.every(p => p.rollingHistory[month]))
@@ -438,17 +471,76 @@ rollingMonthInput.addEventListener('keydown', event => {
 });
 
 const originalTitle = document.title;
+const resizeCharts = () => charts.forEach(chart => chart.resize());
+function applyPrintChartOptions(chart) {
+  const id = chart.getDom().id;
+  if (id.endsWith('-annual')) {
+    chart.setOption({
+      grid: { left: 48, right: 24, top: 34, bottom: 28 },
+      yAxis: { axisLabel: { fontSize: 9 } },
+      series: [{ barWidth: 24, label: { fontSize: 10 } }]
+    });
+  } else if (id.endsWith('-monthly')) {
+    chart.setOption({
+      grid: { left: 34, right: 5, top: 34, bottom: 28 },
+      legend: { itemWidth: 18, itemHeight: 3, textStyle: { fontSize: 10 } },
+      xAxis: { axisLabel: { fontSize: 9 } },
+      yAxis: { axisLabel: { fontSize: 9 } },
+      series: chart.getOption().series.map(() => ({ lineStyle: { width: 2 } }))
+    });
+  } else if (id.endsWith('-stacked')) {
+    const series = chart.getOption().series.map((_, index, all) => ({
+      barWidth: 20,
+      label: { fontSize: index === all.length - 1 ? 10 : 8 }
+    }));
+    chart.setOption({
+      grid: { left: 8, right: 7, top: 40, bottom: 28 },
+      legend: { itemWidth: 12, itemHeight: 9, itemGap: 7, textStyle: { fontSize: 8 } },
+      xAxis: { axisLabel: { fontSize: 8 } },
+      series
+    });
+  } else if (id.includes('-country-')) {
+    chart.setOption({
+      grid: { left: 35, right: 40, top: 5, bottom: 16 },
+      xAxis: { axisLabel: { fontSize: 6 } },
+      yAxis: [
+        { nameTextStyle: { fontSize: 6 }, axisLabel: { fontSize: 6 } },
+        { nameTextStyle: { fontSize: 6 }, axisLabel: { fontSize: 6 } }
+      ],
+      series: [{ barWidth: 6 }, { lineStyle: { width: 1.5 } }]
+    });
+  }
+}
+function enterPrintLayout() {
+  if (document.body.classList.contains('pdf-exporting')) {
+    resizeCharts();
+    return;
+  }
+  document.body.classList.add('pdf-exporting');
+  void document.body.offsetWidth;
+  charts.forEach(applyPrintChartOptions);
+  resizeCharts();
+}
+function leavePrintLayout() {
+  document.body.classList.remove('pdf-exporting');
+  document.title = originalTitle;
+  charts.forEach(chart => chart.setOption(screenChartOptions.get(chart), true));
+  requestAnimationFrame(resizeCharts);
+}
 exportPdfButton.addEventListener('click', () => {
   document.title = `进口数据报告_${rollingMonthInput.value.replace('-', '')}`;
-  charts.forEach(chart => chart.resize());
-  window.print();
+  enterPrintLayout();
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    resizeCharts();
+    window.print();
+  }));
 });
-window.addEventListener('beforeprint', () => charts.forEach(chart => chart.resize()));
-window.addEventListener('afterprint', () => {
-  document.title = originalTitle;
-  charts.forEach(chart => chart.resize());
-});
-window.addEventListener('resize', () => charts.forEach(c => c.resize()));
+window.addEventListener('beforeprint', enterPrintLayout);
+window.addEventListener('afterprint', leavePrintLayout);
+window.addEventListener('resize', resizeCharts);
+if (new URLSearchParams(window.location.search).get('pdf-preview') === '1') {
+  enterPrintLayout();
+}
 </script>
 </body>
 </html>
